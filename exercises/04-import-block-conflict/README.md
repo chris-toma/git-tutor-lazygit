@@ -36,6 +36,18 @@ This is a **merge**, so:
 | `c` | Files panel | Open commit message editor |
 | `q` | Anywhere | Quit LazyGit |
 
+## Resolution Flow
+
+```
+  lazygit → `2` (Files) → `j`/`k` to utils/helpers.go
+       │
+       ▼
+  `e` (open editor) → combine import blocks → keep all functions
+       │                remove conflict markers → save → close
+       ▼
+  `<space>` (stage) → `c` (commit) → Done ✓
+```
+
 ## Step-by-Step Instructions (LazyGit)
 
 1. **Open LazyGit**:

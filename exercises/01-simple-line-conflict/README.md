@@ -45,6 +45,18 @@ In this exercise we are performing a **merge** (not a rebase), so:
 | `c` | Files panel | Open commit message editor |
 | `q` | Anywhere | Quit LazyGit |
 
+## Resolution Flow
+
+```
+  lazygit → `2` (Files) → `j`/`k` to main.go → `<enter>` (conflict view)
+       │
+       ▼
+  `↑` or `↓` to select ours/theirs → `<space>` to pick
+       │
+       ▼
+  `<escape>` → `<space>` (stage) → `c` (commit) → Done ✓
+```
+
 ## Step-by-Step Instructions (LazyGit)
 
 1. **Open LazyGit** in the workspace directory:

@@ -46,6 +46,30 @@ This is a **merge**, so:
 | `c` | Files panel | Open commit message editor |
 | `q` | Anywhere | Quit LazyGit |
 
+## Resolution Flow
+
+```
+  lazygit → `2` (Files) → `j`/`k` to cmd/cli.go → `<enter>`
+       │
+       ▼
+  Hunk 1/3 ──── `↑`/`↓` → `<space>` (or `e` to edit)
+       │
+       ▼
+  `]` ──── jump to next hunk
+       │
+       ▼
+  Hunk 2/3 ──── `↑`/`↓` → `<space>` (or `e` to edit)
+       │
+       ▼
+  `]` ──── jump to next hunk
+       │
+       ▼
+  Hunk 3/3 ──── `↑`/`↓` → `<space>` (or `e` to edit)
+       │
+       ▼
+  `<escape>` → `<space>` (stage) → `c` (commit) → Done ✓
+```
+
 ## Step-by-Step Instructions (LazyGit)
 
 1. **Open LazyGit**:

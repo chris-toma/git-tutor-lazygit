@@ -42,6 +42,30 @@ This is a **merge**, so:
 | `c` | Files panel | Open commit message editor |
 | `q` | Anywhere | Quit LazyGit |
 
+## Resolution Flow
+
+```
+  lazygit → `2` (Files) → Plan resolution strategy first!
+       │
+       ▼
+  File 1: config/config.go ── `j`/`k` → `e` or `<enter>` → resolve
+       │
+       ▼
+  `<space>` (stage file 1)
+       │
+       ▼
+  File 2: task/task.go ─────── `j`/`k` → `e` or `<enter>` → resolve
+       │                        (must be consistent with file 1!)
+       ▼
+  `<space>` (stage file 2)
+       │
+       ▼
+  File 3: main.go ─────────── `j`/`k` → `e` or `<enter>` → resolve
+       │                        (must be consistent with files 1 & 2!)
+       ▼
+  `<space>` (stage file 3) → `c` (commit) → Done ✓
+```
+
 ## Step-by-Step Instructions (LazyGit)
 
 1. **Open LazyGit**:

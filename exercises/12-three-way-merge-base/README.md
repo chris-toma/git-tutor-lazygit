@@ -74,6 +74,27 @@ This is a **merge**, so:
 | `@` | Anywhere | Open command log (see what git commands LazyGit ran) |
 | `q` | Anywhere | Quit LazyGit |
 
+## Resolution Flow
+
+```
+  BEFORE resolving, examine the base:
+  ┌────────────────────────────────────────────┐
+  │  git show :1:task/validate.go  (base)      │
+  │  git show :2:task/validate.go  (ours)      │
+  │  git show :3:task/validate.go  (theirs)    │
+  └────────────────────────────────────────────┘
+       │
+       ▼
+  lazygit → `2` (Files) → task/validate.go
+       │
+       ▼
+  `e` (open editor) → combine ALL checks from both branches
+       │               Use base to understand what each side changed
+       │               remove conflict markers → save → close
+       ▼
+  `<space>` (stage) → `c` (commit) → Done ✓
+```
+
 ## Step-by-Step Instructions (LazyGit)
 
 1. **Open LazyGit**:

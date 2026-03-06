@@ -42,6 +42,19 @@ This is a **merge**, so:
 | `c` | Files panel | Open commit message editor |
 | `q` | Anywhere | Quit LazyGit |
 
+## Resolution Flow
+
+```
+  lazygit → `2` (Files) → `j`/`k` to task/task.go → `<enter>`
+       │
+       ├── Pick one side: `↑`/`↓` → `<space>` → `]` next hunk → repeat
+       │
+       └── Manual edit: `e` (open editor) → combine both → save → close
+       │
+       ▼
+  `<escape>` → `<space>` (stage) → `c` (commit) → Done ✓
+```
+
 ## Step-by-Step Instructions (LazyGit)
 
 1. **Open LazyGit**:

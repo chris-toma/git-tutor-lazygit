@@ -43,6 +43,41 @@ During each rebase step:
 | `m` | Anywhere (during rebase) | Open merge/rebase options popup |
 | `q` | Anywhere | Quit LazyGit |
 
+## Resolution Flow
+
+```
+  lazygit (rebase in progress, conflict 1/3!)
+       │
+       ▼
+  ┌─ Round 1: commit 1 being replayed ─┐
+  │                                     │
+  │  `2` → `e` (edit task/task.go)      │
+  │  Combine main + your commit 1       │
+  │  Stage → `m` → continue             │
+  └─────────────────────────────────────┘
+       │
+       ▼
+  ┌─ Round 2: commit 2 being replayed ─┐
+  │                                     │
+  │  New conflict! (based on Round 1)   │
+  │  `2` → `e` (edit task/task.go)      │
+  │  Add commit 2's methods             │
+  │  Stage → `m` → continue             │
+  └─────────────────────────────────────┘
+       │
+       ▼
+  ┌─ Round 3: commit 3 being replayed ─┐
+  │                                     │
+  │  New conflict! (based on Round 2)   │
+  │  `2` → `e` (edit task/task.go)      │
+  │  Add commit 3's methods             │
+  │  Stage → `m` → continue             │
+  └─────────────────────────────────────┘
+       │
+       ▼
+  Rebase complete ✓
+```
+
 ## Step-by-Step Instructions (LazyGit)
 
 ### Round 1: Replaying Commit 1 (Remove method)

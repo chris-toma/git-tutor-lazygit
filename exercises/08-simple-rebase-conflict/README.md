@@ -51,6 +51,30 @@ This is the **#1 source of confusion** with rebase conflicts. Many people accide
 | `m` | Anywhere (during rebase) | Open merge/rebase options popup |
 | `q` | Anywhere | Quit LazyGit |
 
+## Resolution Flow
+
+```
+  lazygit (rebase in progress!)
+       │
+       ▼
+  ┌─ REMEMBER: ours = main, theirs = YOUR code ─┐
+       │
+       ▼
+  `2` (Files) → resolve task/search.go → `e` (editor: combine both)
+       │
+       ▼
+  resolve main.go → `e` or `<enter>` (combine both)
+       │
+       ▼
+  `<space>` each file (stage)
+       │
+       ▼
+  `m` → `j`/`k` to `continue` → `<enter>`
+       │
+       ▼
+  Rebase complete → `4` (Commits) → verify linear history ✓
+```
+
 ## Step-by-Step Instructions (LazyGit)
 
 1. **Open LazyGit**:

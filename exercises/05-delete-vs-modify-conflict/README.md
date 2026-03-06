@@ -43,6 +43,24 @@ This is a **merge**, so:
 | `c` | Files panel | Open commit message editor |
 | `q` | Anywhere | Quit LazyGit |
 
+## Resolution Flow
+
+```
+  lazygit → `2` (Files) → `j`/`k` to task/store.go
+       │
+       ▼
+  Decide: keep file export? database? or both?
+       │
+       ▼
+  `e` (open editor) → implement chosen approach
+       │                remove conflict markers → save → close
+       ▼
+  Also resolve main.go if conflicted (same approach)
+       │
+       ▼
+  `<space>` each file (stage) → `c` (commit) → Done ✓
+```
+
 ## Step-by-Step Instructions (LazyGit)
 
 1. **Open LazyGit**:

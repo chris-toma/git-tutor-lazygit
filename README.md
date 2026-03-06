@@ -59,6 +59,203 @@ When you have a merge conflict, selecting the conflicted file and pressing `<ent
 - Press `<space>` to accept the highlighted choice
 - Press `e` to open in your editor for manual resolution
 
+### LazyGit Panel Layout
+
+```
+┌─────────────────────────────────────────────────────────────────┐
+│ LazyGit                                          branch-name    │
+├──────────────┬──────────────────────────────────────────────────┤
+│              │                                                  │
+│  [1] Status  │                                                  │
+│              │                                                  │
+│  [2] Files   │             Main Content Area                    │
+│   ├ UU file1 │          (diff, conflict view,                   │
+│   └ M  file2 │           commit details)                        │
+│              │                                                  │
+│  [3] Branches│                                                  │
+│   ├ main     │                                                  │
+│   └ feature  │                                                  │
+│              │                                                  │
+│  [4] Commits │                                                  │
+│   ├ abc1234  │                                                  │
+│   └ def5678  │                                                  │
+│              │                                                  │
+│  [5] Stash   │                                                  │
+│              │                                                  │
+├──────────────┴──────────────────────────────────────────────────┤
+│ Navigate: j/k  Switch panels: 1-5  Help: ?  Quit: q            │
+└─────────────────────────────────────────────────────────────────┘
+```
+
+### File Status Markers
+
+- `UU` = Both branches modified (conflict!)
+- `M ` = Modified (staged)
+- ` M` = Modified (unstaged)
+- `A ` = Added (staged)
+- `??` = Untracked
+- `DU` = Deleted by us
+- `UD` = Deleted by them
+
+## Workflow Diagrams
+
+### Merge Conflict Resolution Flow
+
+```
+  Run setup.sh
+       │
+       ▼
+  lazygit
+       │
+       ▼
+  Press `2` ──────────────────── Files panel
+       │
+       ▼
+  Press `j`/`k` ─────────────── Select conflicted file (UU)
+       │
+       ▼
+  Press `<enter>` ───────────── Conflict resolution view
+       │
+       ├─── Simple? ──────────── Press `↑`/`↓` to pick side
+       │    │                    Press `<space>` to accept
+       │    │                    Press `]` for next hunk
+       │    │                    Repeat for all hunks
+       │    │
+       ├─── Complex? ─────────── Press `e` to open $EDITOR
+       │    │                    Edit file manually
+       │    │                    Remove <<<<<<< ======= >>>>>>>
+       │    │                    Save & close editor
+       │    │
+       ▼    ▼
+  Press `<escape>` ──────────── Back to Files panel
+       │
+       ▼
+  Press `<space>` ───────────── Stage resolved file
+       │
+       ▼
+  More conflicted files? ──yes── Go back to "Select conflicted file"
+       │
+       no
+       │
+       ▼
+  Press `c` ─────────────────── Commit merge
+       │
+       ▼
+  Type message, press `<enter>` ── Done ✓
+```
+
+### Rebase Conflict Resolution Flow
+
+```
+  Run setup.sh (rebase already started)
+       │
+       ▼
+  lazygit
+       │
+       ▼
+  ┌──────────────────────────────────────┐
+  │  REMEMBER: During rebase:            │
+  │  "ours"  = branch you rebase ONTO    │
+  │  "theirs" = YOUR commits (replayed)  │
+  └──────────────────────────────────────┘
+       │
+       ▼
+  Press `2` ──────────────────── Files panel
+       │
+       ▼
+  Resolve all conflicted files ── (same as merge flow above)
+       │
+       ▼
+  Stage all resolved files ───── Press `<space>` on each
+       │
+       ▼
+  Press `m` ─────────────────── Merge/rebase options popup
+       │
+       ▼
+  Select `continue` ─────────── Press `j`/`k` then `<enter>`
+       │
+       ▼
+  More commits to replay? ──yes── Another conflict appears
+       │                          Go back to "Resolve all files"
+       no
+       │
+       ▼
+  Rebase complete ✓
+       │
+       ▼
+  Press `4` ─────────────────── Verify linear history in Commits panel
+```
+
+### Interactive Rebase (Squash) Flow
+
+```
+  lazygit
+       │
+       ▼
+  Press `4` ──────────────────── Commits panel
+       │
+       ▼
+  Press `j`/`k` ─────────────── Navigate to commit to squash
+       │
+       ▼
+  Press `s` ──────────────────── Mark for squash (into commit below)
+       │                         Repeat for each commit to squash
+       ▼
+  Squash starts automatically
+       │
+       ├─── No conflict ─────── Edit combined commit message
+       │                         Press `<enter>` to confirm
+       │
+       ├─── Conflict! ───────── Press `2` → Files panel
+       │         │               Resolve conflicts (same as merge)
+       │         │               Stage files with `<space>`
+       │         │               Press `m` → `continue`
+       │         │               Edit commit message
+       │         ▼
+       │    More squashes pending? ──yes── Loop back
+       │         │
+       │         no
+       ▼         ▼
+  Rebase complete ✓
+```
+
+### Cherry-Pick Conflict Resolution Flow
+
+```
+  lazygit
+       │
+       ▼
+  Press `3` ──────────────────── Branches panel
+       │
+       ▼
+  Press `j`/`k` ─────────────── Select source branch
+       │
+       ▼
+  Press `<enter>` ───────────── View branch's commits
+       │
+       ▼
+  Press `j`/`k` ─────────────── Select commit to cherry-pick
+       │
+       ▼
+  Press `C` (capital) ────────── Copy commit for cherry-pick
+       │
+       ▼
+  Press `<escape>` back to your branch
+       │
+       ▼
+  Press `V` (capital) ────────── Paste (apply cherry-pick)
+       │
+       ├─── No conflict ─────── Cherry-pick complete ✓
+       │
+       ├─── Conflict! ───────── Press `2` → Files panel
+       │         │               Resolve conflicts
+       │         │               Stage files with `<space>`
+       │         │               Press `m` → `continue`
+       │         ▼
+       │    Cherry-pick complete ✓
+       ▼
+```
+
 ## Key Concepts
 
 Before starting the exercises, familiarize yourself with these terms. They are explained in more depth within each exercise's "Deep Dive" section.

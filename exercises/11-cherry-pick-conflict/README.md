@@ -45,6 +45,25 @@ During a **cherry-pick**, the semantics are similar to a merge:
 | `m` | Anywhere (during cherry-pick) | Open merge/rebase options popup |
 | `q` | Anywhere | Quit LazyGit |
 
+## Resolution Flow
+
+```
+  lazygit (cherry-pick in progress, conflict!)
+       │
+       ▼
+  `2` (Files) → logging/logger.go has conflict
+       │
+       ▼
+  `e` (open editor) → adapt cherry-picked code to hotfix context
+       │               (cannot just pick "theirs" — context differs!)
+       │               remove conflict markers → save → close
+       ▼
+  `<space>` (stage) → `m` → `continue`
+       │
+       ▼
+  Cherry-pick complete ✓
+```
+
 ## Step-by-Step Instructions (LazyGit)
 
 1. **Open LazyGit**:

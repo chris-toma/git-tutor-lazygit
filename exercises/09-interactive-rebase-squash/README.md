@@ -64,6 +64,32 @@ Before starting, understand the available operations:
 | `m` | Anywhere (during rebase) | Open merge/rebase options popup |
 | `q` | Anywhere | Quit LazyGit |
 
+## Resolution Flow
+
+```
+  lazygit → `4` (Commits)
+       │
+       ▼
+  Navigate to commit 2 → `s` (squash into commit 1)
+  Navigate to commit 4 → `s` (squash into commit 3)
+  Navigate to commit 5 → `s` (squash into commit 3+4)
+       │
+       ▼
+  Squash begins → Conflict!
+       │
+       ▼
+  `2` (Files) → resolve → `<space>` (stage) → `m` → `continue`
+       │
+       ▼
+  Edit commit message → `<enter>`
+       │
+       ▼
+  Another conflict? → resolve → stage → continue → edit message
+       │
+       ▼
+  All squashes done → `4` (Commits) → verify 2 commits ✓
+```
+
 ## Step-by-Step Instructions (LazyGit)
 
 1. **Open LazyGit**:
